@@ -59,7 +59,13 @@ body {
     height: 225px;
     width: 275px;
     background-color: rgb(209, 209, 209);
+    border: 1px solid black;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 
@@ -77,8 +83,66 @@ body {
     background-color: rgb(245, 245, 245);
 }
 
-.new-book-btn {
+#new-book-btn {
     height: 45px;
     width: 10vw;
     border-radius: 5px;
+}
+
+.edit {
+    position: absolute;
+    top: 0px;
+    width: inherit;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title {
+    font-size: 2rem;
+}
+.author {
+    font-size: 1.5rem;
+    margin: 10px 0px;
+}
+
+.pages {
+    font-size: 1.5rem;
+}
+
+.edit-text {
+    margin-right: 5px;
+}
+
+.read-bar {
+    background-color: black;
+    height: 20px;
+    width: inherit;
+    position: absolute;
+    bottom: 0px;
+    border-end-end-radius: 10px;
+    border-end-start-radius: 10px;
+
+}
+
+.read {
+    background-color: green;
+}
+
+
+@media screen and (max-width: 1150px) {
+    .main-container {
+        grid-template-columns: repeat(2, 35vw);
+    }
+    .right-bar {
+        width: 22vw;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .main-container {
+        grid-template-columns: repeat(1, 50vw);
+    }
+    .right-bar {
+         width: 30vw;
+    }
 }

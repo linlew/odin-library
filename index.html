@@ -14,22 +14,73 @@
       <div class="right-text">My Library</div>
     </div>
     <div class="main-container">
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
-      <div class="book"></div>
+      <div class="book">
+        <div class="edit">
+          <div class="edit-text">Edit</div>
+        </div>
+        <div class="title">Title</div>
+        <div class="author">Author</div>
+        <div class="pages">Pages</div>
+        <div class="read-bar read"></div>
+      </div>
     </div>
     <div class="right-bar">
-      <button class="new-book-btn">Add Book</button>
+      <button id="new-book-btn">Add Book</button>
     </div>
+    <dialog id="new-book-form">
+      <form class="form">
+        <div>Add a new book</div>
+        <div>
+          <label for="book-title">Title</label>
+          <input type="text" name="book-tit" id="book-title" />
+        </div>
+        <div>
+          <label for="book-author">Author</label>
+          <input type="text" name="book-aut" id="book-author" />
+        </div>
+        <div>
+          <label for="book-pages">Pages</label>
+          <input type="number" name="book-pg" id="book-pages" />
+        </div>
+        <div>
+          <label for="read-check">Finished Book</label>
+          <input type="checkbox" id="read-check" />
+        </div>
+        <button value="cancel" id="cancel-submit-btn" formmethod="dialog">
+          Cancel
+        </button>
+        <button id="submit-book-btn" value="default">Submit</button>
+      </form>
+    </dialog>
+    <dialog id="update-book-form">
+      <form class="form">
+        <div>Add a new book</div>
+        <div>
+          <label for="update-book-title">Title</label>
+          <input type="text" name="book-tit" id="update-book-title" />
+        </div>
+        <div>
+          <label for="update-book-author">Author</label>
+          <input type="text" name="book-aut" id="update-book-author" />
+        </div>
+        <div>
+          <label for="update-book-pages">Pages</label>
+          <input type="number" name="book-pg" id="update-book-pages" />
+        </div>
+        <div>
+          <label for="update-read-check">Finished Book</label>
+          <input type="checkbox" id="update-read-check" />
+        </div>
+        <button
+          value="cancel"
+          id="update-cancel-submit-btn"
+          formmethod="dialog"
+        >
+          Cancel
+        </button>
+        <button id="update-submit-book-btn" value="default">Submit</button>
+      </form>
+    </dialog>
     <script src="index.js"></script>
   </body>
 </html>
