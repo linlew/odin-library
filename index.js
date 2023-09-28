@@ -3,9 +3,12 @@ const submitBookBtn = document.getElementById("submit-book-btn");
 const updateSubmitBookBtn = document.getElementById("update-submit-book-btn");
 const cancelSubmit = document.getElementById("cancel-submit-btn");
 const updateCancelSubmit = document.getElementById("update-cancel-submit-btn");
+const deleteBookBtn = document.getElementById("delete-book-btn");
 const bookForm = document.getElementById("new-book-form");
 const updateBookForm = document.getElementById("update-book-form");
 const bookFormContent = document.querySelector(".form");
+const updateFormContent = document.querySelector('.update-form-content')
+
 
 const bName = document.getElementById("book-name");
 const bookTitle = document.getElementById("book-title");
@@ -20,6 +23,7 @@ const updateBookReadStatus = document.getElementById("update-read-check");
 
 const mainContainer = document.querySelector(".main-container");
 let counter = 1;
+let tClass = '';
 
 addBookBtn.addEventListener("click", () => {
     bookForm.showModal();
@@ -40,6 +44,20 @@ submitBookBtn.addEventListener("click", (event) => {
 updateSubmitBookBtn.addEventListener("click", (event) => {
     event.preventDefault();
     updateBookForm.close();
+    const upBook = updateBookObject(`${tClass}`);
+    updateBookDiv(upBook);
+});
+
+deleteBookBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    updateBookForm.close();
+    rmDiv = document.querySelector(`.${tClass}`);
+    rmDiv.remove();
+    tClass = "";
+});
+
+updateCancelSubmit.addEventListener("click", () => {
+    updateBookForm.close();
 });
 
 
@@ -56,11 +74,11 @@ function createBookDiv(bookObj) {
     editTextDiv.textContent = 'Edit';
     editTextDiv.addEventListener('click', (event) => {
         tClass = event.target.classList[1];
-        const updateBook = updateBookObject(tClass);
+        const updateBook = updateBookField(tClass);
         updateBookForm.showModal();
-        // updateBookDiv(updateBook);
-        // console.log(event);
     });
+
+
     const titleDiv = document.createElement("div");
     titleDiv.classList.add('title');
     const authorDiv = document.createElement("div");
@@ -69,6 +87,13 @@ function createBookDiv(bookObj) {
     pagesDiv.classList.add('pages');
     const readBarDiv = document.createElement("div");
     readBarDiv.classList.add('read-bar');
+
+    readBarDiv.addEventListener('click', (event) => {
+        let rDiv = event.target;
+        let barClass = event.target.classList[1];
+        if (barClass) rDiv.classList.remove('read');
+        else rDiv.classList.add('read');
+    });
     
     //adds the content to the divs
     if (bookObj.title === "") {
@@ -111,17 +136,57 @@ function createBookObject(bName) {
 }
 
 function updateBookObject(bName) {
-    console.log(`${bName}`);
+    let book = {
+        bookName: bName,
+        title: updateBookTitle.value,
+        author: updateBookAuthor.value,
+        pages: updateBookPages.value,
+        read: updateBookReadStatus.checked
+    }
+    return book
+}
+
+
+
+
+function updateBookField(bName) {
     titleDiv = document.querySelector(`div.${bName} div.title`);
     authorDiv = document.querySelector(`div.${bName} div.author`);
     pagesDiv = document.querySelector(`div.${bName} div.pages`);
+    let read = document.querySelector(`div.${bName} div.read`);
     updateBookTitle.value = titleDiv.textContent;
     updateBookAuthor.value = authorDiv.textContent.substr(4);
     updateBookPages.value = parseInt(pagesDiv.textContent.substr(7));
-
-    console.log(titleDiv.textContent);
+    if (read === null) {
+        updateBookReadStatus.checked = false;
+    }
+    else 
+    {
+        updateBookReadStatus.checked = true;
+    }
 }
 
-// function updateBookDiv(newBook) {
+function updateBookDiv(book) {
+    titleDiv = document.querySelector(`div.${tClass} div.title`);
+    authorDiv = document.querySelector(`div.${tClass} div.author`);
+    pagesDiv = document.querySelector(`div.${tClass} div.pages`);
+    readBarDiv = document.querySelector(`div.${tClass} div.read-bar`);
 
-// }
+    if (book.title === "") {
+        titleDiv.textContent = "Untitled"
+    }
+    else {
+        titleDiv.textContent = `${book.title}`;
+    }
+    authorDiv.textContent = `By: ${book.author}`;
+    pagesDiv.textContent = `Pages: ${book.pages}`;
+    if (book.read) {
+        readBarDiv.classList.add('read');
+    }
+    else {
+        readBarDiv.classList.remove('read');
+    }
+
+
+
+}
